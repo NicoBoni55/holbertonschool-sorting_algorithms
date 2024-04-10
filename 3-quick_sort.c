@@ -1,6 +1,6 @@
 #include "sort.h"
 /**
- * twoparts - Divide the array into two parts
+ * two_parts - Divide the array into two parts
  * @array: array
  * @size: size
  * @min : min
@@ -10,33 +10,38 @@
  */
 int two_parts(int *array, size_t size, int min, int max)
 {
-	int i, j, aux, pivot = max;
+	int i, j, aux, pivot = array[max];
 
-	i = (min - 1);
-
-	for (j = min; j <= max - 1; j++)
+	for (i = j = min; j < max; j++)
 	{
 		if (array[j] < pivot)
-                {
-			i++;
-			aux = array[i];
-                        array[i] = array[j];
-			array[j] = aux;
-			print_array(array, size);
-                }
+		{
+			if (i < j)
+			{
+				aux = array[j];
+				array[j] = array[i];
+				array[i] = aux;
+				print_array(array, size);
+			}
+		i++;
+		}
 	}
-	aux = array[i + 1];
-	array[i + 1] = array[max];
-	array[max] = aux;
-	print_array(array, size);
-
+	if (array[i] > pivot)
+	{
+		aux = array[i];
+		array[i] = array[max];
+		array[max] = aux;
+		print_array(array, size);
+	}
 	return (i);
 }
 #include "sort.h"
 /**
- * quick_sort - order using the Quick sort algorithm
+ * _sort - using the Quick sort algorithm
  * @array: array
  * @size: size
+ * @min : min
+ * @max : max
  *
  * Return: nothing
  */
@@ -51,6 +56,7 @@ void _sort(int *array, size_t size, int min, int max)
 		_sort(array, size, mit + 1, max);
 	}
 }
+
 #include "sort.h"
 /**
  * quick_sort - order using the Quick sort algorithm
